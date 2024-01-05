@@ -19,7 +19,6 @@ const ChatList = ({userId}) => {
   };
 
   const [chatList, setChatList] = useState([]);
-  console.log('chatList', chatList);
 
   // Get User data from user data with reference of chats
   const getChatList = async () => {
@@ -42,7 +41,6 @@ const ChatList = ({userId}) => {
             .map(async user => {
               const userDoc = await user.get();
               const userData = await userDoc.data();
-              console.log('userData', userData);
               const id = user?.id;
               const name = userData?.name;
               const profileUrl = await getImageURLfromFirebaseStorage(
@@ -60,8 +58,6 @@ const ChatList = ({userId}) => {
         const lastMessage = lastMessageDoc?.docs?.length
           ? lastMessageDoc.docs[0].data()
           : {};
-        // console.log('lastMessage', lastMessage);
-        console.log('participants', participants);
         return {
           lastMessage,
           otherUser: participants[0],
@@ -80,8 +76,8 @@ const ChatList = ({userId}) => {
 
   return (
     <>
-      {chatList.map(item => (
-        <>
+      {chatList.map((item, index) => (
+        <View key={index}>
           {item.otherUser && item.lastMessage && (
             <View key={item.otherUser.id}>
               <TouchableOpacity
@@ -113,7 +109,7 @@ const ChatList = ({userId}) => {
               </TouchableOpacity>
             </View>
           )}
-        </>
+        </View>
       ))}
     </>
   );

@@ -12,7 +12,6 @@ const ProgressBar = ({setTimeUp}) => {
       useNativeDriver: false,
     }).start(({finished}) => {
       if (finished) {
-        console.log('Animation stopped and progress bar is full');
         setTimeUp();
       }
     });

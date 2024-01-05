@@ -11,11 +11,11 @@ import VectorIcon from '../utils/VectorIcon';
 import {Colors} from '../theme/Colors';
 import {useNavigation} from '@react-navigation/native';
 import {getDeviceId} from '../utils/helper';
+import localStorage from 'redux-persist/es/storage';
 
 const ChatListScreen = () => {
   const navigation = useNavigation();
   const [userId, setUserId] = useState(null);
-  console.log('userId in ChatListScreen', userId);
 
   const onNavigate = () => {
     navigation.navigate('ContactScreen', {
@@ -24,7 +24,10 @@ const ChatListScreen = () => {
   };
 
   useEffect(() => {
-    getDeviceId().then(id => setUserId(id));
+    getDeviceId().then(id => {
+      localStorage.setItem('userDeviceId', id);
+      setUserId(id);
+    });
   }, []);
 
   return (

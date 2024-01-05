@@ -9,7 +9,6 @@ import {useNavigation} from '@react-navigation/native';
 const ContactList = ({userId}) => {
   const navigation = useNavigation();
   const [contactList, setContactList] = useState([]);
-  console.log('contactList', contactList);
   const getContactListFromFireStore = async () => {
     const contactCollection = await firestore().collection('users').get();
 
@@ -27,18 +26,14 @@ const ContactList = ({userId}) => {
         };
       }),
     );
-    // console.log('contactListData', contactListData);
     return contactListData;
   };
   useEffect(() => {
     getContactListFromFireStore()
       .then(res => {
-        console.log('res', res);
         setContactList(res);
       })
-      .catch(error => {
-        console.log('error in getContactListFromFireStore', error);
-      });
+      .catch(error => {});
   }, []);
 
   const onNavigate = (userId, contactId) => {
@@ -51,8 +46,8 @@ const ContactList = ({userId}) => {
   return (
     <View style={styles.container}>
       {/* <Text style={styles.title}>Contacts on Whatsapp</Text> */}
-      {contactList.map(item => (
-        <>
+      {contactList.map((item, index) => (
+        <View key={index}>
           {item.id == userId ? (
             <View key={item.id}>
               <TouchableOpacity
@@ -86,7 +81,7 @@ const ContactList = ({userId}) => {
             <Text style={styles.username}>{item.name}</Text>
           </TouchableOpacity>
         </View> */}
-        </>
+        </View>
       ))}
     </View>
   );

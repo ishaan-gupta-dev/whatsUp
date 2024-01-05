@@ -10,7 +10,6 @@ import ProgressBar from './ProgressBar';
 
 const FullModal = props => {
   const {showStatusModal, setShowStatusModal, item, setTimeUp} = props;
-  console.log('showStatusModal', showStatusModal);
   const navigation = useNavigation();
 
   const updateModalStatus = () => {

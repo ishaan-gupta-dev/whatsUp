@@ -10,7 +10,7 @@ const ChatBody = ({userId, chatId}) => {
   // const userId = '1jdfnvchjkd';
 
   const [messages, setMessages] = useState([]);
-  console.log('messages ==============', messages);
+
   const [enableScrollToBottomIcon, setEnableScrollToBottomIcon] =
     useState(true);
 
@@ -22,7 +22,6 @@ const ChatBody = ({userId, chatId}) => {
       .orderBy('timestamp')
       .onSnapshot(snapshot => {
         const allMessages = snapshot.docs.map(snap => {
-          // console.log('snap', snap);
           return snap.data();
         });
         setMessages(allMessages);
@@ -32,7 +31,6 @@ const ChatBody = ({userId, chatId}) => {
   }, []);
 
   const UserMessageView = ({message, time, index}) => {
-    console.log('index UserMessageView', index);
     return (
       <View style={styles.userContainer} key={index}>
         <View style={styles.userInnerContainer}>
@@ -51,7 +49,6 @@ const ChatBody = ({userId, chatId}) => {
   };
 
   const OtherUserMessageView = ({message, time, index}) => {
-    console.log('index OtherUserMessageView', index);
     return (
       <View style={styles.otherUserContainer} key={index}>
         <View style={styles.otherUserInnerContainer}>
@@ -94,21 +91,21 @@ const ChatBody = ({userId, chatId}) => {
           }
         }}>
         {messages.map((item, index) => (
-          <>
+          <View key={index}>
             {item.sender === userId ? (
               <UserMessageView
                 message={item.body}
                 time={item.timestamp?.toDate().toDateString()}
-                index={index}
+                // index={index}
               />
             ) : (
               <OtherUserMessageView
                 message={item.body}
                 time={item.timestamp?.toDate().toDateString()}
-                index={index}
+                // index={index}
               />
             )}
-          </>
+          </View>
         ))}
       </ScrollView>
 

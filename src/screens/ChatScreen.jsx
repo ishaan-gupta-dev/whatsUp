@@ -8,8 +8,7 @@ import firestore from '@react-native-firebase/firestore';
 
 const ChatScreen = props => {
   const {userId, contactId} = props.route.params;
-  console.log('userId', userId);
-  console.log('contactId', contactId);
+  console.log('userId in chatScreen', userId);
   const generateChatId = () => {
     const sortUserIds = [userId, contactId].sort();
     const chatId = sortUserIds.join('_');
@@ -33,7 +32,11 @@ const ChatScreen = props => {
   return (
     <>
       {/* <Text>ChatScreen</Text> */}
-      <ChatHeader contactUserRef={contactUserRef} />
+      <ChatHeader
+        contactUserRef={contactUserRef}
+        chatId={chatId}
+        userId={userId}
+      />
       <ImageBackground source={Wallpaper} style={styles.wallPaper}>
         <ChatBody userId={userId} chatId={chatId} />
       </ImageBackground>
