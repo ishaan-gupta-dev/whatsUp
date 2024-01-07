@@ -11,6 +11,7 @@ export const userSlice = createSlice({
       // doesn't actually mutate the state because it uses the immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
+      // added a comment
       state.value += 1;
     },
     decrement: state => {
